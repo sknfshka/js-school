@@ -26,10 +26,12 @@ block content
         option(value="Комедия") Комедия
         option(value="Боевик") Боевик
         option(value="Ужасы") Ужасы
+      i.down
     div.filter-row
       label.filter-label(for="sort-by") Сортировать по
       select.filter-input(id="sort-by", name="sort")
         option(value="title") Название
         option(value="latest") Последние
         option(value="best") Лучшие
+      i.down
   div.films-container(id = "films-container")
