@@ -1,0 +1,35 @@
+extends layout
+
+block content
+  div.filter(action="/fiter")
+    div.filter-row
+      label.filter-label(for="year-from-filter") Год от
+      input.filter-input(id="year-from-filter", type="text", name="year-from") 
+    div.filter-row
+      label.filter-label(for="year-until-filter") до
+      input.filter-input(id="year-until-filter", type="text", name="year-until") 
+
+    div.filter-row
+      label.filter-label(for="title-filter") Название
+      input.filter-input(id="title-filter", type="text", name="title") 
+    div.filter-row
+      label.filter-label(for="rating-filter") Рейтинг
+      div.filter-range
+          div.rating-value(id = "rating-value") 1
+          input.range-slider(id="rating-filter", type="range", name="rating", min="0", max="10", value="1")
+          div.rating-value 10
+    
+    div.filter-row
+      label.filter-label(for="category-filter") Категория
+      select.filter-input(id="category-filter", name="category")
+        option(value="Все") Все
+        option(value="Комедия") Комедия
+        option(value="Боевик") Боевик
+        option(value="Ужасы") Ужасы
+    div.filter-row
+      label.filter-label(for="sort-by") Сортировать по
+      select.filter-input(id="sort-by", name="sort")
+        option(value="title") Название
+        option(value="latest") Последние
+        option(value="best") Лучшие
+  div.films-container(id = "films-container")
