@@ -1,90 +1,119 @@
-var script = document.createElement('script');
-script.src = "/javascripts/jquery.js";
-document.body.appendChild(script);
-
 var data = {
     films: [],
-
-    loadAllFilms: () => {},
 }
 
-function afterLoad() {
-    var scripts = ['/javascripts/jquery.js'];
-    scripts.forEach(function(src) {
-        var script = document.createElement('script');
-        script.src = src;
-        document.head.appendChild(script);
-    });
+function loadFilms(loadTo) {
+    loadTo.films = 
+    [
+        {
+            id: "1",
+            title: "Аанго освобожденный",
+            date: new Date(2012, 11, 2),
+            rating: 5,
+            picture: "/images/iphone360_586397.jpg",
+            categories: ["Комедия","Боевик"]
+        },
+        {
+            id: "2",
+            title: "Asd",
+            date: new Date(2014, 11, 2),
+            rating: 8.3,
+            picture: "/images/iphone360_586397.jpg",
+            categories: ["Комедия"]
+        },
+        {
+            id: "3",
+            title: "фыв",
+            date: new Date(2015, 11, 2),
+            rating: 10,
+            picture: "/images/iphone360_586397.jpg",
+            categories: ["Комедия","Боевик"]
+        },
+        {
+            id: "4",
+            title: "Джанго освобожденный",
+            date: new Date(2013, 11, 2),
+            rating: 2,
+            picture: "/images/iphone360_586397.jpg",
+            categories: ["Комедия","Боевик"]
+        },
+        {
+            id: "4",
+            title: "Джанго освобожденный",
+            date: new Date(2013, 11, 2),
+            rating: 2,
+            picture: "/images/iphone360_586397.jpg",
+            categories: ["Комедия","Боевик"]
+        },
+        {
+            id: "4",
+            title: "Джанго освобожденный",
+            date: new Date(2013, 11, 2),
+            rating: 2,
+            picture: "/images/iphone360_586397.jpg",
+            categories: ["Комедия","Боевик"]
+        },
+        {
+            id: "4",
+            title: "Джанго освобожденный",
+            date: new Date(2013, 11, 2),
+            rating: 2,
+            picture: "/images/iphone360_586397.jpg",
+            categories: ["Комедия","Боевик"]
+        }
+    ];
 }
-
-script.onload = script.onerror = function() {
-    if (!this.executed) {
-        this.executed = true;
-        afterLoad();
-    }
-};
-
-script.onreadystatechange = function() {
-    var self = this;
-    if (this.readyState == "complete" || this.readyState == "loaded") {
-        setTimeout(function() {
-            self.onload()
-        }, 0); // save this
-    }
-};
 
 showFilms = (films) => {
     let root = document.getElementById("films-container");
     root.innerHTML = '';
-
-    addFilmElementToRoot = (element) => {
-
-        let img = document.createElement('img');
-        img.setAttribute('src', element.picture);
-        img.setAttribute('alt', element.title + " постер");
-
-        let imgLink = document.createElement('a');
-        imgLink.className = "poster-link";
-        imgLink.appendChild(img);
-
-        let filmPoster = document.createElement('div');
-        filmPoster.className = "film-poster";
-        filmPoster.appendChild(imgLink);
-
-        let filmTitle = document.createElement('a');
-        filmTitle.innerHTML = element.title;
-        filmTitle.className = "film-title";
-
-        let filmYear = document.createElement('div');
-        filmYear.innerHTML = element.date.toLocaleString('ru', {
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric'
-        });
-        filmYear.className = "film-year";
-
-        let filmRating = document.createElement('div');
-        filmRating.innerHTML = "" + element.rating + "/10";
-        filmRating.className = "film-rating " + calculateColor(element.rating);
-
-        let filmRow = document.createElement('div');
-        filmRow.className = "film-row";
-        filmRow.appendChild(filmPoster);
-
-        filmRow.appendChild(filmPoster);
-        filmRow.appendChild(filmTitle);
-        filmRow.appendChild(filmYear);
-        filmRow.appendChild(filmRating);
-        root.appendChild(filmRow);
-    };
-
-    films.forEach(element => { addFilmElementToRoot(element); });
+    films.forEach(element => { addFilmElementToRoot(element, root); });
 }
 
+addFilmElementToRoot = (element, root) => {
+    let img = document.createElement('img');
+    img.setAttribute('src', element.picture);
+    img.setAttribute('alt', element.title + " постер");
+
+    let imgLink = document.createElement('a');
+    imgLink.className = "film__poster-link";
+    imgLink.appendChild(img);
+
+    let filmPoster = document.createElement('div');
+    filmPoster.className = "film__poster";
+    filmPoster.appendChild(imgLink);
+
+    let filmTitle = document.createElement('a');
+    filmTitle.innerHTML = element.title;
+    filmTitle.className = "film__title";
+
+    let filmYear = document.createElement('div');
+    filmYear.innerHTML = element.date.toLocaleString('ru', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+    });
+    filmYear.className = "film__date";
+
+    let filmRating = document.createElement('div');
+    filmRating.innerHTML = "" + element.rating + "/10";
+    filmRating.className = "film__rating " + calculateColor(element.rating);
+
+    let filmRow = document.createElement('div');
+    filmRow.className = "film";
+    filmRow.appendChild(filmPoster);
+
+    filmRow.appendChild(filmPoster);
+    filmRow.appendChild(filmTitle);
+    filmRow.appendChild(filmYear);
+    filmRow.appendChild(filmRating);
+    root.appendChild(filmRow);
+};
+
 calculateColor = (rating) => {
-    if(rating >= 7) return "excelent";
-    else if (rating >= 4) return "good";
-    else return "bad";
+    if(rating >= 7) return "film__rating_excelent";
+    else if (rating >= 4) return "film__rating_good";
+    else return "film__rating_bad";
 }
 
 compareDates = (a, b) => {
@@ -99,150 +128,89 @@ compareNumbers = (a, b) => {
     else return -1;
 }
 
-applySameTimeFilters = () => {
-    let toDisplay = data.films;
-    let titleFilter = document.getElementById('title-filter');
-    if (titleFilter.value !== '') {
-        toDisplay = toDisplay.filter(film => film.title.toLowerCase().startsWith(titleFilter.value.toLowerCase()));
-    }
+setUpFilters = (filterForm) => {
+
+    applySameTimeFilters = () => {
+        let filmListToDisplay = data.films;
+        
+        if (filterForm.inputs.title.value !== '') {
+            filmListToDisplay = filmListToDisplay.filter(film => film.title.toLowerCase().startsWith(filterForm.inputs.title.value.toLowerCase()));
+        }
+        
+        if (filterForm.inputs.category.value.toLowerCase() !== 'все') {
+            filmListToDisplay = filmListToDisplay.filter(film => film.categories.map(e => e.toLowerCase()).includes(filterForm.inputs.category.value.toLowerCase()));
+        }
     
-    let categoryFilter = document.getElementById('category-filter');
-    if (categoryFilter.value.toLowerCase() !== 'все') {
-        toDisplay = toDisplay.filter(film => film.categories.map(e => e.toLowerCase()).includes(categoryFilter.value.toLowerCase()));
-    }
-
-    let sortBy = document.getElementById('sort-by');
-    switch (sortBy.value) {
-        case 'title': {
-            toDisplay = toDisplay.sort((a, b) => a.title.localeCompare(b.title))
-            break;
+        switch (filterForm.inputs.sort.value) {
+            case 'title': {
+                filmListToDisplay = filmListToDisplay.sort((a, b) => a.title.localeCompare(b.title))
+                break;
+            }
+            case 'latest': {
+                filmListToDisplay = filmListToDisplay.sort((a,b) => compareDates(a.date, b.date));
+                break;
+            }
+            case 'best': {
+                filmListToDisplay = filmListToDisplay.sort((a,b) => compareNumbers(a.rating, b.rating));
+                break;
+            }
         }
-        case 'latest': {
-            toDisplay = toDisplay.sort((a,b) => compareDates(a.date, b.date));
-            break;
-        }
-        case 'best': {
-            toDisplay = toDisplay.sort((a,b) => compareNumbers(a.rating, b.rating));
-            break;
-        }
-    }
-
-    let ratingFilter = document.getElementById("rating-filter");
-    toDisplay = toDisplay.filter(film => film.rating >= ratingFilter.value);
-
-    let yearFromFilter = document.getElementById("year-from-filter");
-    if (yearFromFilter.value !== '' && yearFromFilter.value.match(/^[\d]{4}$/i)) {
-        toDisplay = toDisplay.filter(film => film.date.getFullYear() >= yearFromFilter.value);
-    }
-
-    let yearUntilFilter = document.getElementById("year-until-filter");
-    if (yearUntilFilter.value !== '' && yearUntilFilter.value.match(/^[\d]{4}$/i)) {
-        toDisplay = toDisplay.filter(film => film.date.getFullYear() <= yearUntilFilter.value);
-    }
     
-    showFilms(toDisplay);
+        filmListToDisplay = filmListToDisplay.filter(film => film.rating >= filterForm.inputs.rating.value);
+    
+        if (filterForm.inputs.yearFrom.value !== '' && filterForm.inputs.yearFrom.value.match(/^[\d]{4}$/i)) {
+            filmListToDisplay = filmListToDisplay.filter(film => film.date.getFullYear() >= filterForm.inputs.yearFrom.value);
+        }
+    
+        if (filterForm.inputs.yearUntil.value !== '' && filterForm.inputs.yearUntil.value.match(/^[\d]{4}$/i)) {
+            filmListToDisplay = filmListToDisplay.filter(film => film.date.getFullYear() <= filterForm.inputs.yearUntil.value);
+        }
+        
+        showFilms(filmListToDisplay);
+    }
+
+    filterForm.inputs.title.addEventListener('keyup', applySameTimeFilters);
+    filterForm.inputs.category.addEventListener('change', applySameTimeFilters);
+    filterForm.inputs.sort.addEventListener('input', applySameTimeFilters);
+    filterForm.inputs.rating.addEventListener('input', applySameTimeFilters);
+    filterForm.inputs.yearFrom.addEventListener('keyup', applySameTimeFilters);
+    filterForm.inputs.yearUntil.addEventListener('keyup', applySameTimeFilters);
 }
 
-setUpFilters = () => {
-    let titleFilter = document.getElementById('title-filter');
-    titleFilter.onkeyup = applySameTimeFilters;
+function initFilterForm() {
+    let filterForm = {
+        inputs : {},
+    };
 
-    let categoryFilter = document.getElementById('category-filter');
-    categoryFilter.onchange = applySameTimeFilters;
+    filterForm.inputs.title = document.getElementById('title-filter');
+    filterForm.inputs.category = document.getElementById('category-filter');
+    filterForm.inputs.sort = document.getElementById('sort-by');
+    filterForm.inputs.rating = document.getElementById("rating-filter");
+    displaySliderValue(filterForm.inputs.rating, document.getElementById('rating-value'))
+    filterForm.inputs.yearUntil = document.getElementById("year-until-filter");
+    setUpDateValidation('keyup', filterForm.inputs.yearUntil);
+    filterForm.inputs.yearFrom = document.getElementById("year-from-filter");
+    setUpDateValidation('keyup', filterForm.inputs.yearFrom);
 
-    let sortBy = document.getElementById('sort-by');
-    sortBy.onchange = applySameTimeFilters;
+    return filterForm;
+}
 
-    let ratingFilter = document.getElementById("rating-filter");
-    ratingFilter.oninput = (event) => {
-        let ratingValue = document.getElementById('rating-value');
-        ratingValue.innerHTML = event.target.value;
-        applySameTimeFilters();
-    }
+function displaySliderValue(slider, valueBlock) {
+    slider.addEventListener('input', event => {
+        valueBlock.innerHTML = event.target.value;
+    });
+}
 
-    
-    let yearFromFilter = document.getElementById("year-from-filter");
-    yearFromFilter.onkeyup = (event) => {
-        if (event.target.value !== '' && !event.target.value.match(/^[\d]{4}$/i)) yearFromFilter.classList.add('not-valid');
-        else  yearFromFilter.classList.remove('not-valid');
-        applySameTimeFilters();
-    }
-    
-    let yearUntilFilter = document.getElementById("year-until-filter");
-    yearUntilFilter.onkeyup = (event) => {
-        if (event.target.value !== '' && !event.target.value.match(/^[\d]{4}$/i)) yearUntilFilter.classList.add('not-valid');
-        else  yearUntilFilter.classList.remove('not-valid');
-        applySameTimeFilters();
-    }
+function setUpDateValidation(type, input) {
+    input.addEventListener(type, event => {
+        if (event.target.value !== '' && !event.target.value.match(/^[\d]{4}$/i)) input.classList.add('filter-item__input_not-valid');
+        else  input.classList.remove('filter-item__input_not-valid');
+    });
 }
 
 window.onload = function () {
-    data.loadAllFilms = () => {
-        data.films = 
-        [
-            {
-                id: "1",
-                title: "Аанго освобожденный",
-                date: new Date(2012, 11, 2),
-                rating: 5,
-                picture: "/images/iphone360_586397.jpg",
-                categories: ["Комедия","Боевик"]
-            },
-            {
-                id: "2",
-                title: "Asd",
-                date: new Date(2014, 11, 2),
-                rating: 8.3,
-                picture: "/images/iphone360_586397.jpg",
-                categories: ["Комедия"]
-            },
-            {
-                id: "3",
-                title: "фыв",
-                date: new Date(2015, 11, 2),
-                rating: 10,
-                picture: "/images/iphone360_586397.jpg",
-                categories: ["Комедия","Боевик"]
-            },
-            {
-                id: "4",
-                title: "Джанго освобожденный",
-                date: new Date(2013, 11, 2),
-                rating: 2,
-                picture: "/images/iphone360_586397.jpg",
-                categories: ["Комедия","Боевик"]
-            },
-            {
-                id: "4",
-                title: "Джанго освобожденный",
-                date: new Date(2013, 11, 2),
-                rating: 2,
-                picture: "/images/iphone360_586397.jpg",
-                categories: ["Комедия","Боевик"]
-            },
-            {
-                id: "4",
-                title: "Джанго освобожденный",
-                date: new Date(2013, 11, 2),
-                rating: 2,
-                picture: "/images/iphone360_586397.jpg",
-                categories: ["Комедия","Боевик"]
-            },
-            {
-                id: "4",
-                title: "Джанго освобожденный",
-                date: new Date(2013, 11, 2),
-                rating: 2,
-                picture: "/images/iphone360_586397.jpg",
-                categories: ["Комедия","Боевик"]
-            }
-        ];
-        
-        console.log("Data loaded: ", data.films);
-    }
-
-    data.loadAllFilms();
-    applySameTimeFilters();
-
-    setUpFilters();
+    loadFilms(data);
+    filterForm = initFilterForm();
+    setUpFilters(filterForm);
+    showFilms(data.films);
 }
