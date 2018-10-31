@@ -5,8 +5,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var sassMiddleware = require('node-sass-middleware');
 
-var filmRouter = require('./routes/films');
-var usersRouter = require('./routes/users');
+var appRouter = require('./routes/app-router');
 
 var app = express();
 
@@ -26,8 +25,7 @@ app.use(sassMiddleware({
 }));
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', filmRouter);
-app.use('/users', usersRouter);
+app.use('/', appRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -1,0 +1,29 @@
+doctype html
+html.background-dark
+  head
+    title= title
+    link(rel='stylesheet', href='/stylesheets/normalize.css')
+    link(rel='stylesheet', href='/stylesheets/style.css')
+    link(rel='stylesheet', href='/stylesheets/form.css')
+    link(rel='stylesheet', href='/stylesheets/film.css')
+    link(rel="stylesheet", href="https://fonts.googleapis.com/css?family=Roboto")
+    style(type='text/css').
+      html {
+        background-color: #303030
+      }
+  body
+    div.wrapper
+      form(action="/films", method="post").login-form
+        div.form-item
+          label.form-item__label(for="login") Логин
+          input.form-item__input(id="login", type="text", name="login") 
+
+        div.form-item
+          label.form-item__label(for="password") Пароль
+          input.form-item__input(id="password", type="password", name="password") 
+        
+        div.form-item
+          input.form-item__input.form-item__input_button(id="submit", type="submit", name="password", value="ВОЙТИ") 
+
+    script(src='javascripts/preloader.js')
+  

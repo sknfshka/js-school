@@ -4,11 +4,14 @@ html
     title= title
     link(rel='stylesheet', href='/stylesheets/normalize.css')
     link(rel='stylesheet', href='/stylesheets/style.css')
-    link(rel='stylesheet', href='/stylesheets/filter.css')
+    link(rel='stylesheet', href='/stylesheets/form.css')
     link(rel='stylesheet', href='/stylesheets/film.css')
     link(rel="stylesheet", href="https://fonts.googleapis.com/css?family=Roboto")
   body
     navbar.nav-sticky
     div.wrapper
       block content
-      script(src='javascripts/preloader.js')
+      script(src='javascripts/display.js', type="module")
+      script(src='javascripts/load.js', type="module")
+      script(src='javascripts/form.js', type="module")
+      script(src='javascripts/preloader.js', type="module")

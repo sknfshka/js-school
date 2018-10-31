@@ -1,36 +1,36 @@
-div.filter
-  div.filter-item
-    label.filter-item__label(for="year-from-filter") Год от
-    input.filter-item__input(id="year-from-filter", type="text", name="year-from") 
+div.filter-form
+  div.form-item
+    label.form-item__label(for="year-from-filter") Год от
+    input.form-item__input(id="year-from-filter", type="text", name="year-from") 
 
-  div.filter-item
-    label.filter-item__label(for="year-until-filter") до
-    input.filter-item__input(id="year-until-filter", type="text", name="year-until") 
+  div.form-item
+    label.form-item__label(for="year-until-filter") до
+    input.form-item__input(id="year-until-filter", type="text", name="year-until") 
 
-  div.filter-item
-    label.filter-item__label(for="title-filter") Название
-    input.filter-item__input(id="title-filter", type="text", name="title") 
+  div.form-item
+    label.form-item__label(for="title-filter") Название
+    input.form-item__input(id="title-filter", type="text", name="title") 
 
-  div.filter-item
-    label.filter-item__label(for="rating-filter") Рейтинг
-    div.filter-item__range
-        div.filter-item__range__rating-value(id = "rating-value") 0
-        input.filter-item__range__range-slider(id="rating-filter", type="range", name="rating", min="0", max="10", value="0")
-        div.filter-item__range__rating-value 10
+  div.form-item
+    label.form-item__label(for="rating-filter") Рейтинг
+    div.form-item__range
+        div.form-item__range__rating-value(id = "rating-value") 0
+        input.form-item__range__range-slider(id="rating-filter", type="range", name="rating", min="0", max="10", value="0")
+        div.form-item__range__rating-value 10
   
-  div.filter-item
-    label.filter-item__label(for="category-filter") Категория
-    select.filter-item__input(id="category-filter", name="category")
+  div.form-item
+    label.form-item__label(for="category-filter") Категория
+    select.form-item__input(id="category-filter", name="category")
       option(value="Все") Все
       option(value="Комедия") Комедия
       option(value="Боевик") Боевик
       option(value="Ужасы") Ужасы
-    i.filter-item__select-arrow
+    i.form-item__select-arrow
 
-  div.filter-item
-    label.filter-item__label(for="sort-by") Сортировать по
-    select.filter-item__input(id="sort-by", name="sort")
+  div.form-item
+    label.form-item__label(for="sort-by") Сортировать по
+    select.form-item__input(id="sort-by", name="sort")
       option(value="title") Название
       option(value="latest") Последние
       option(value="best") Лучшие
-    i.filter-item__select-arrow
+    i.form-item__select-arrow
