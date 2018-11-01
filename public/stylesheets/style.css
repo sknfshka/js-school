@@ -25,4 +25,7 @@ html {
   -o-background-size: cover;
   background-size: cover; }
 
+body {
+  overflow-y: scroll; }
+
 /*# sourceMappingURL=style.css.map */

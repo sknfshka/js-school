@@ -22,9 +22,9 @@ button:focus {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  -webkit-box-shadow: 0px 4px 157px -20px #fafafa;
-  -moz-box-shadow: 0px 4px 157px -20px #fafafa;
-  box-shadow: 0px 4px 157px -20px #fafafa; }
+  -webkit-box-shadow: 0px 25px 157px -20px #fafafa;
+  -moz-box-shadow: 0px 25px 157px -20px #fafafa;
+  box-shadow: 0px 25px 157px -20px #fafafa; }
 
 .filter-form {
   width: 60%;
